@@ -193,13 +193,13 @@ public class GoL extends JPanel {
     static void determineNextGeneration() {
         for (Cell cell : currentGeneration) {
             int aliveNeighbour = 0;
-            boolean isAlive;
             for (Cell neighbour : cell.getNeighbours()) {
+                boolean isNeighbourAlive;
                 if (currentGeneration.contains(neighbour)) {
                     aliveNeighbour += 1;
-                    isAlive = true;
+                    isNeighbourAlive = true; // state of cell's neighbour in current iteration
                 } else {
-                    isAlive = false;
+                    isNeighbourAlive = false; // state of cell's neighbour in current iteration
                 }
                 int aliveNeighbour_neighbour = 0;
                 for (Cell neighbour_neighbour : neighbour.getNeighbours()) {
@@ -207,9 +207,9 @@ public class GoL extends JPanel {
                         aliveNeighbour_neighbour += 1;
                     }
                 }
-                if (isAlive && (aliveNeighbour_neighbour == 2 || aliveNeighbour_neighbour == 3) && !nextGeneration.contains(neighbour)) {
+                if (isNeighbourAlive && (aliveNeighbour_neighbour == 2 || aliveNeighbour_neighbour == 3) && !nextGeneration.contains(neighbour)) {
                     nextGeneration.add(neighbour);
-                } else if (isAlive == false && aliveNeighbour_neighbour == 3 && !nextGeneration.contains(neighbour)) {
+                } else if (isNeighbourAlive == false && aliveNeighbour_neighbour == 3 && !nextGeneration.contains(neighbour)) {
                     nextGeneration.add(neighbour);
                 }
             }
